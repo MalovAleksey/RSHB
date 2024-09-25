@@ -28,3 +28,5 @@ zip -Tr9 "${path1}${name}" "${path}" > /dev/null \
  && echo "2. Архив проверен - ошибок нет" \
  && md5sum ${path}/* > ${path}/hash.md \
  && echo "Hash file create"
+
+sed 's/tar1\//'$path'\/tar1\//g'
