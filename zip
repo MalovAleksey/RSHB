@@ -1,26 +1,30 @@
-#!/bin/bash
+!/bin/bash
 
 echo "Укажите путь к архивируемой директории или файлу"
 read path
 
 if [[ -e "$path" ]]; then
-	echo "Укажите в какую директорию сохранить архив ( пример /home/root/)"
-	read  path1
+        echo "Укажите в какую директорию сохранить архив ( пример /home/root/)"
+        read  path1
 else
-	echo "Нет такого файла или директории"
-	exit
+        echo "Нет такого файла или директории"
+        #exit
 fi
 
 if  [[ -z "$path1" ]]; then
-	echo "Укажите в какую директорию сохранить архив"
-	read path;
+        echo "Укажите в какую директорию сохранить архив"
+        read path;
 elif [[ -d "$path1" ]]; then
-	echo "Укажите  желаемое имя файла  архива  с расширением .zip"
-	read name
+        echo "Укажите  желаемое имя файла  архива  с расширением .zip"
+        read name
 fi
 if  [[ -z "$name" ]]; then
-	echo "Укажите  желаемое имя файла  архива  с расширением .zip"
+        echo "Укажите  желаемое имя файла  архива  с расширением .zip"
 fi
 
-zip -r9 "${path1}${name}" "${path}" > /dev/null  && echo "1. Архив "${path1}${name}" создан" && unzip -t "${path1}${name}" > /dev/null  && echo "2. Архив проверен - ошибок нет"
-
+zip -Tr9 "${path1}${name}" "${path}" > /dev/null \
+ && echo "1. Архив "${path1}${name}" создан" \
+ && unzip -t "${path1}${name}" \
+ && echo "2. Архив проверен - ошибок нет" \
+ && md5sum ${path}/* > ${path}/hash.md \
+ && echo "Hash file create"
