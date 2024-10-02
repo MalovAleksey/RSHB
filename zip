@@ -8,7 +8,7 @@ if [[ -e "$path" ]]; then
         read  path1
 else
         echo "Нет такого файла или директории"
-        #exit
+        exit
 fi
 
 if  [[ -z "$path1" ]]; then
