@@ -22,20 +22,19 @@ if  [[ -z "$name" ]]; then
         echo "Укажите  желаемое имя файла  архива  с расширением .zip"
 fi
 
-path4=//
-
 zip -Tr9 "${path1}${name}" "${path}" > /dev/null \
  && echo "1. Архив "${path1}${name}" создан" \
  && unzip -t "${path1}${name}" > /dev/null \
  && echo "2. Архив проверен - ошибок нет" \
  && find "${path}/" -type f -exec  md5sum {} + > "$path1"hash.md \
  && echo "3. Хэш файл создан" \
- && unzip "${path1}${name}" -d "$path1" > /dev/null \
+ && echo "4. Провожу распаковку архива" \
+ && unzip "${path1}${name}" -d "$path1" \
  && path3="$(echo ${path1}${path} | sed 's/\//:/g')" \
- && echo "4. Проверяю хэш файлов " && echo "" \
+ && echo "5. Проверяю хэш файлов " && echo "" \
  && sed -i 's/'$path'/'$path3'/g' "$path1"hash.md \
  && sed -i 's/:/\//g' "$path1"hash.md \
  && md5sum -c "$path1"hash.md && echo "" \
- && echo "5. Удаляю распакованные файлы "${path1}${path}"" \
+ && echo "6. Удаляю временные распакованные файлы "${path1}${path}"" \
  && rm -rf "${path1}${path}" \
- && echo "6. Файлы удалены"
+ && echo "7. Временные файлы удалены"
