@@ -30,10 +30,10 @@ zip -Tr9 "${path1}${name}" "${path}" > /dev/null \
  && echo "3. Хэш файл создан" \
  && echo "4. Провожу распаковку архива" \
  && unzip "${path1}${name}" -d "$path1" \
- && path3="$(echo ${path1}${path} | sed 's/\//:/g')" \
+ && path3="$(echo ${path1}${path} | sed 's/\//(/g')" \
  && echo "5. Проверяю хэш файлов " && echo "" \
  && sed -i 's/'$path'/'$path3'/g' "$path1"hash.md \
- && sed -i 's/:/\//g' "$path1"hash.md \
+ && sed -i 's/(/\//g' "$path1"hash.md \
  && md5sum -c "$path1"hash.md && echo "" \
  && echo "6. Удаляю временные распакованные файлы "${path1}${path}"" \
  && rm -rf "${path1}${path}" \
